@@ -1,0 +1,130 @@
+.profile {
+  margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: rgba(52, 73, 94, 0.7);
+}
+
+#profile-userpic {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin: 0px auto;
+    position: relative;
+}
+
+#imga {
+    margin:0px auto;
+    height: 180px;
+    width: 180px;
+	border-radius:50%;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #111555;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.profile-usertitle-roll {
+  color: #0;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: black;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+  color:black;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+/* Profile Content */
+
+.profile-content {
+  padding: 20px;
+  background: rgba(52, 73, 94, 0.7);
+  overflow:auto;
+}
+
+/* New Contemt*/
+input[type=text]:disabled, input[type=tel]:disabled, input[type=email]:disabled {
+				background:#ffffff;
+				cursor:default;
+			}
+
+textarea.disabled:disabled {
+	resize:none;
+	background:#ffffff;
+	cursor:default;
+}
+
+textarea {
+	resize:none;
+}
+.border{
+	background-color:white;
+	float:left;
+	margin-top:10px;
+	margin-right:20px;
+	border-radius:10px;
+	padding:0px;
+}
+
+.dev{
+	background-color:white;
+	float:left;
+	margin-bottom:5px;
+	margin-top:5px;
+	padding:5px;
+	border-radius:5px;
+	display:block;
+}
+
+body{
+	background-attachment:fixed;
+	background-size:cover;
+}
