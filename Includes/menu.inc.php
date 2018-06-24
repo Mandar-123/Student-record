@@ -27,7 +27,7 @@
 					</a>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<a href="logout.inc.php" style="margin:0px;padding:0px">
+					<a href="Settings.php" style="margin:0px;padding:0px">
 						<img src="Images/settings.png" width="40" height="40" id="edit" style="margin-right:4px;margin-left:20px;margin-bottom:5px;margin-top:5px;">
 					</a>
 				</ul>

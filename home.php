@@ -12,6 +12,12 @@
 		<link rel="stylesheet" href="External/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 		<script src="External/jquery-3.2.1.min.js"></script>
 		<script src="External/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<style>
+		body{
+			background-attachment:fixed;
+			background-size:cover;
+		}
+		</style>
 	</head>
 	<body background="Images/back.jpg" spellcheck="false">
 		<?php include 'includes/menu.inc.php'; ?>

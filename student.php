@@ -13,6 +13,26 @@ include_once 'includes/checksession.inc.php'
 		<script src="External/jquery-3.2.1.min.js"></script>
 		<script src="External/bootstrap-3.3.7-dist/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<link rel = "stylesheet" type = "text/css" href = "style_sheets/studentInfo.css">
+		<script>
+			$(document).ready(function(){
+				$.ajaxSetup({ cache: false });
+				loadremarks();
+			});
+			function savedata(formname) {
+			  $.post($(formname).attr("action"), $(formname).serializeArray(), function(info) {
+				alert(info);
+			  });
+			  document.getElementById('rem').value = "";
+			  $(formname).submit(function() {
+				return false;
+			  });
+			  loadremarks();
+			}
+			function loadremarks()
+			{
+				$("#loadrem").load("includes/remark_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
+			}
+		</script>
 	</head>
 
 	<body background="Images/back.jpg" spellcheck="false">
@@ -22,6 +42,10 @@ include_once 'includes/checksession.inc.php'
 		$roll=$_POST['uroll'];
 		$sql="SELECT * FROM student WHERE rollNumber='$roll';";
 		$result=mysqli_query($conn,$sql);
+		if(mysqli_num_rows($result) == 0){
+			echo "<div style='width:240px;margin:250px auto;background:rgba(255, 0, 0, 0.2);text-align:center; padding: 20px; border-radius:10px;'><b>No Student with Roll Number $roll</b></div>";	
+			exit();
+		}
 		$row = mysqli_fetch_assoc($result);
 	?>
 	<div class="container" style="margin-top:60px;">
@@ -41,7 +65,7 @@ include_once 'includes/checksession.inc.php'
 							<?php echo $row["studentsName"];?>
 						</div>
 						<div class="profile-usertitle-roll">
-							<?php echo $roll;?>
+							<?php echo $row['rollNumber'];?>
 						</div>
 						<div class="profile-usertitle-roll">
 							DIV <?php echo $row["division"];?> - Batch <?php echo $row["batch"];?>
@@ -69,11 +93,6 @@ include_once 'includes/checksession.inc.php'
 								<a data-toggle="tab" href="#remarks">
 								<i class="glyphicon glyphicon-pencil"></i>
 								Remarks </a>
-							</li>
-							<li>
-								<a data-toggle="tab" href="#skills">
-								<i class="glyphicon glyphicon-briefcase"></i>
-								Skills </a>
 							</li>
 						</ul>
 					</div>
@@ -123,32 +142,7 @@ include_once 'includes/checksession.inc.php'
 						</div>
 					</div>
 				</div>
-
-
-				<div class="col-md-9 tab-pane fade" id="skills">
-					<div class="profile-content">
-					   <div class="col-sm-3">
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">Game Studio</strong>
-							</div>
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">C++</strong>
-							</div>
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">FMod</strong>
-							</div>
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">Flash</strong>
-							</div>
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">DirectX</strong>
-							</div>
-							<div class="dev col-sm-12">
-								<strong style="font-size:15px;">Autodesk 3ds Max</strong>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 				<div class="col-md-9 tab-pane fade" id="acaddet">
 					<div class="profile-content">
 						   <div class="col-sm-2">
@@ -234,58 +228,22 @@ include_once 'includes/checksession.inc.php'
 					</div>
 				</div>
 				<div class="col-md-9 tab-pane fade" id="remarks">
-					<?php 
-						$sql="SELECT * FROM remark WHERE roll = '$roll'";
-						$res = mysqli_query($conn,$sql);
-						if(mysqli_num_rows($res) > 0) {
-						while($row1 = mysqli_fetch_assoc($res)) {
-							if($row1['isPositive'] == 0) {
-					?>
-					<div class="profile-content" style="background:rgba(240,0,0,0.8); col-sm-12" >
-						<div class="col-sm-4">
-							<input disabled type="text" value="<?php echo $row1['prof']?>" class="form-control">
-						</div>
-						<div class="col-sm-2">
-							<input disabled type="text" value="<?php echo $row1['dateOfRem'] ?>" class="form-control">
-						</div>
-						<br/><br/>
-						<div class="col-sm-12">
-							<textarea disabled class="form-control disabled" rows="3"><?php echo $row1['rem']; ?></textarea>
-						</div>
+					<div id="loadrem">
+					
 					</div>
-					<br/>
-					<?php }
-						else { ?>
-					<div class="profile-content" style="background:rgba(0,250,0,0.8); col-sm-12" >
-						<div class="col-sm-4">
-							<input disabled type="text" value="<?php echo $row1['prof']?>" class="form-control">
-						</div>
-						<div class="col-sm-2">
-							<input disabled type="text" value="<?php echo $row1['dateOfRem'] ?>" class="form-control">
-						</div>
-						<br/><br/>
-						<div class="col-sm-12">
-							<textarea disabled class="form-control disabled" rows="3"><?php echo $row1['rem']; ?></textarea>
-						</div>
-					</div>
-					<br/>
-						<?php }}} ?>
-					<br/><br/><br/>
 					<div class="profile-content">
 						<!-- Form for remark -->
-						<form method = "post" action = "Includes/addRemark.inc.php">
-							<textarea name="exp" id="exp" class="form-control" rows="3" placeholder="Enter your remark!"></textarea>
+						<form method = "post" action = "Includes/addRemark.inc.php" id="remForm">
+							<textarea name="rem" id="rem" class="form-control" rows="3" placeholder="Enter your remark!"></textarea>
 							<br/>
 							<div class="col-sm-offset-2  col-sm-3">
-								<input type="submit" class="btn btn-success  col-sm-12" value="Good" name="setGood">
+								<input type="button" class="btn btn-success col-sm-12" onclick="document.getElementById('isPositive').value = '1';savedata('#remForm');" value="Good" name="setGood">
 							</div>
 							<div class="col-sm-offset-2 col-sm-3">
-								<input type="submit" class="btn btn-danger col-sm-12" value="Bad" name="setBad">
+								<input type="button" class="btn btn-danger col-sm-12" onclick="document.getElementById('isPositive').value = '0';savedata('#remForm');" value="Bad" name="setBad">
 							</div>
-							<br/><br/>
-							<div class="col-sm-offset-5 col-sm-2">
-								<input type="submit" class="btn btn-primary col-sm-12" value="Submit" name="submit">
-							</div>
+							<input type="hidden" value="0" id="isPositive" name="isPositive">
+							<input type="hidden" value="<?php echo $roll; ?>" name="rollNum" >
 						</form>
 					</div>
 				</div>
