@@ -30,7 +30,7 @@ include_once 'includes/checksession.inc.php'
 			}
 			function loadremarks()
 			{
-				$("#loadrem").load("includes/remark_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
+				$("#loadrem").load("includes/remark_div.inc.php", {roll:<?php echo "'".$_SESSION['id']."'";?>});
 			}
 		</script>
 	</head>
@@ -38,8 +38,8 @@ include_once 'includes/checksession.inc.php'
 	<body background="Images/back.jpg" spellcheck="false">
 	<?php include 'includes/dbh.inc.php';?>
 	<?php 
-		include 'includes/menu.inc.php';
-		$roll=$_POST['uroll'];
+		include 'includes/menuStudent.inc.php';
+		$roll=$_SESSION['id'];
 		$sql="SELECT * FROM student WHERE rollNumber='$roll';";
 		$result=mysqli_query($conn,$sql);
 		if(mysqli_num_rows($result) == 0){
@@ -62,7 +62,7 @@ include_once 'includes/checksession.inc.php'
 					<!-- SIDEBAR USER TITLE -->
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">
-							<?php echo $row["studentsName"];?>
+							<?php echo $row['studentsName'];?>
 						</div>
 						<div class="profile-usertitle-roll">
 							<?php echo $row['rollNumber'];?>
@@ -93,6 +93,11 @@ include_once 'includes/checksession.inc.php'
 								<a data-toggle="tab" href="#remarks">
 								<i class="glyphicon glyphicon-pencil"></i>
 								Remarks </a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#internships">
+								<i class="glyphicon glyphicon-briefcase"></i>
+								Internship </a>
 							</li>
 						</ul>
 					</div>
@@ -245,21 +250,8 @@ include_once 'includes/checksession.inc.php'
 					<div id="loadrem">
 					
 					</div>
-					<div class="profile-content">
-						<!-- Form for remark -->
-						<form method = "post" action = "Includes/addRemark.inc.php" id="remForm">
-							<textarea name="rem" id="rem" class="form-control" rows="3" placeholder="Enter your remark!"></textarea>
-							<br/>
-							<div class="col-sm-offset-2  col-sm-3">
-								<input type="button" class="btn btn-success col-sm-12" onclick="document.getElementById('isPositive').value = '1';savedata('#remForm');" value="Good" name="setGood">
-							</div>
-							<div class="col-sm-offset-2 col-sm-3">
-								<input type="button" class="btn btn-danger col-sm-12" onclick="document.getElementById('isPositive').value = '0';savedata('#remForm');" value="Bad" name="setBad">
-							</div>
-							<input type="hidden" value="0" id="isPositive" name="isPositive">
-							<input type="hidden" value="<?php echo $roll; ?>" name="rollNum" >
-						</form>
-					</div>
+				</div>
+				<div class="col-md-9 tab-pane fade" id="internships">
 				</div>
 			</div>
 			<!-- END RIGHT PANE -->
