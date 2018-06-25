@@ -16,21 +16,27 @@ include_once 'includes/checksession.inc.php'
 		<script>
 			$(document).ready(function(){
 				$.ajaxSetup({ cache: false });
-				loadremarks();
+				loadinternships();
 			});
 			function savedata(formname) {
 			  $.post($(formname).attr("action"), $(formname).serializeArray(), function(info) {
 				alert(info);
+				if(info == 'Added !')
+					clearInput(formname);
 			  });
-			  document.getElementById('rem').value = "";
 			  $(formname).submit(function() {
 				return false;
 			  });
-			  loadremarks();
+			  loadinternships();
 			}
-			function loadremarks()
+			function loadinternships()
 			{
-				$("#loadrem").load("includes/remark_div.inc.php", {roll:<?php echo "'".$_SESSION['id']."'";?>});
+				$("#loadinternships").load("includes/internship_div.inc.php", {roll:<?php echo "'".$_SESSION['id']."'";?>});
+			}
+			function clearInput(formname) {
+			  $(formname + " :input").each(function() {
+				$(this).val('');
+			  });
 			}
 		</script>
 	</head>
@@ -252,6 +258,42 @@ include_once 'includes/checksession.inc.php'
 					</div>
 				</div>
 				<div class="col-md-9 tab-pane fade" id="internships">
+					<div id="loadinternships">
+					
+					</div>
+					<div class="profile-content">
+						<!-- Form for remark -->
+						<form method = "post" action = "Includes/addInternship.inc.php" id="internForm">
+							<div  class="form-group">
+								<label for="at" class="control-label col-sm-2" >Interned At: </label>
+								<div class="col-sm-8">
+								  <input type="text" class="form-control" name="at" id="at" placeholder="Name of the Organization"/>
+								</div>
+							</div>
+							<br/><br/><br/>
+							<div  class="form-group">
+								<label for="from" class="control-label col-sm-2" >Duration: </label>
+								<div class="col-sm-2">
+								  <input type="text" name="from" id="from" class="form-control" placeholder="Start Date"/>
+								</div>
+								<p style="float:left;width:5px;display:inline-block;">-</p>
+								<div class="col-sm-2">
+								  <input type="text" name="to" id="to" class="form-control" placeholder="End Date"/>
+								</div>
+							</div>
+							<br/><br/>
+							<div  class="form-group">
+								<label for="desc" class="control-label col-sm-2" >Description: </label>
+								<div class="col-sm-10">
+								  <textarea name="desc" id="desc" class="form-control" rows="3" placeholder="Describe your job at the internship!"></textarea>
+								</div>
+							</div>
+							<br/><br/><br/><br/>
+							<div class="col-sm-offset-5  col-sm-2">
+								<button class="btn btn-primary col-sm-12" onclick="savedata('#internForm');" name="addIn">ADD</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 			<!-- END RIGHT PANE -->

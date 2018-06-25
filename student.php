@@ -17,6 +17,7 @@ include_once 'includes/checksession.inc.php'
 			$(document).ready(function(){
 				$.ajaxSetup({ cache: false });
 				loadremarks();
+				loadinternships();
 			});
 			function savedata(formname) {
 			  $.post($(formname).attr("action"), $(formname).serializeArray(), function(info) {
@@ -31,6 +32,10 @@ include_once 'includes/checksession.inc.php'
 			function loadremarks()
 			{
 				$("#loadrem").load("includes/remark_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
+			}
+			function loadinternships()
+			{
+				$("#loadinternships").load("includes/internship_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
 			}
 		</script>
 	</head>
@@ -93,6 +98,11 @@ include_once 'includes/checksession.inc.php'
 								<a data-toggle="tab" href="#remarks">
 								<i class="glyphicon glyphicon-pencil"></i>
 								Remarks </a>
+							</li>
+							<li>
+								<a data-toggle="tab" href="#internships">
+								<i class="glyphicon glyphicon-briefcase"></i>
+								Internship </a>
 							</li>
 						</ul>
 					</div>
@@ -259,6 +269,11 @@ include_once 'includes/checksession.inc.php'
 							<input type="hidden" value="0" id="isPositive" name="isPositive">
 							<input type="hidden" value="<?php echo $roll; ?>" name="rollNum" >
 						</form>
+					</div>
+				</div>
+				<div class="col-md-9 tab-pane fade" id="internships">
+					<div id="loadinternships">
+					
 					</div>
 				</div>
 			</div>

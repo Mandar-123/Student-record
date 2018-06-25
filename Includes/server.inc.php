@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$row=mysqli_fetch_assoc($result);
 		$hashedPwdCheck=password_verify($pass,$row['pass']);
 		
-		 /*AND pass = '$password'*/ 
 		if($hashedPwdCheck==false)
 		{
 			header("Location: ../index.html?login=Invalid%20Password");
