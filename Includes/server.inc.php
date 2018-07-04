@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$pass = mysqli_real_escape_string($conn,$_POST['password']);
 	if(empty($username) || empty($pass))
 	{
-		header("Location: ../index.html?login=Incomplte%20Input");
+		header("Location: ../index.php?login=Incomplte%20Input");
 		exit();
 	}
 	if(isset($_POST['login1'])) {
@@ -16,15 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$resultCheck=mysqli_num_rows($result);
 		if($resultCheck<1)
 		{
-			header("Location: ../index.html?login=User%20Does%20NOT%20Exist");
+			header("Location: ../index.php?login=User%20Does%20NOT%20Exist");
 			exit();
 		}
 		$row=mysqli_fetch_assoc($result);
 		$hashedPwdCheck=password_verify($pass,$row['pass']);
-		
+
 		if($hashedPwdCheck==false)
 		{
-			header("Location: ../index.html?login=Invalid%20Password");
+			header("Location: ../index.php?login=Invalid%20Password");
 			exit();
 		}
 		else if($hashedPwdCheck==true)
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//To login the user using session
 			session_start();
 			$_SESSION['id']=$row['rollNumber'];
-			$_SESSION['fname'] = $row['studentsName'];
+			$_SESSION['name'] = $row['studentsName'];
 			header("Location: ../studentHome.php");
 			exit();
 		}
@@ -43,14 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$resultCheck=mysqli_num_rows($result);
 		if($resultCheck<1)
 		{
-			header("Location: ../index.html?login=User%20Does%20NOT%20Exist");
+			header("Location: ../index.php?login=User%20Does%20NOT%20Exist");
 			exit();
 		}
 		$row=mysqli_fetch_assoc($result);
 		$hashedPwdCheck=password_verify($pass,$row['pass']);
 		if($hashedPwdCheck==false)
 		{
-			header("Location: ../index.html?login=Invalid%20Password");
+			header("Location: ../index.php?login=Invalid%20Password");
 			exit();
 		}
 		else if($hashedPwdCheck==true)
@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			//To login the user using session
 			session_start();
 			$_SESSION['id']=$row['id'];
-			$_SESSION['fname'] = $row['name'];
+			$_SESSION['name'] = $row['name'];
 			header("Location: ../home.php");
 			exit();
 		}
 	}
 	else
 	{
-		header("Location: ../index.html");
+		header("Location: ../index.php");
 		exit();
 	}
 }

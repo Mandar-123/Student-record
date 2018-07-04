@@ -1,5 +1,7 @@
 <?php
-	include_once 'includes/checksession.inc.php'
+	include 'includes/dbh.inc.php';
+	include_once 'includes/checksession.inc.php';
+	include_once 'includes/checkIfStudent.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +36,7 @@
 		</style>
 	</head>
 	<body background="Images/back.jpg" spellcheck="false">
-		<?php include 'includes/menu.inc.php'; ?>
+		<?php include 'includes/menuStudent.inc.php'; ?>
 		<div class="profile-content col-md-8 col-md-offset-2" style="margin-top:100px;">
 			<form class="form-horizontal" action="includes/changepasswordStudent.inc.php" method="POST" id="passform">
 				<div class="form-group">
@@ -55,7 +57,7 @@
 					 <input type="password" class="form-control" name="renewpass" id="renewpass" placeholder="Re-enter New password">
 					</div>
 				</div>
-				<div class="form-group">	
+				<div class="form-group">
 				<div class="col-sm-offset-4 col-sm-4">
 					<button type="button" class="btn btn-danger" id="sub"  onclick="savedata('#passform');">Change Password</button>
 				</div>

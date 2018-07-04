@@ -1,5 +1,7 @@
 <?php
-include_once 'includes/checksession.inc.php'
+	include 'includes/dbh.inc.php';
+	include_once 'includes/checksession.inc.php';
+	include_once 'includes/checkIfFaculty.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +20,8 @@ include_once 'includes/checksession.inc.php'
 				$.ajaxSetup({ cache: false });
 				loadremarks();
 				loadinternships();
+				loadskills();
+				loadinterests();
 			});
 			function savedata(formname) {
 			  $.post($(formname).attr("action"), $(formname).serializeArray(), function(info) {
@@ -37,18 +41,26 @@ include_once 'includes/checksession.inc.php'
 			{
 				$("#loadinternships").load("includes/internship_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
 			}
+			function loadskills()
+			{
+				$("#allskills").load("includes/skills_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
+			}
+			function loadinterests()
+			{
+				$("#allinterests").load("includes/interests_div.inc.php", {roll:<?php echo "'".$_POST['uroll']."'";?>});
+			}
 		</script>
 	</head>
 
 	<body background="Images/back.jpg" spellcheck="false">
 	<?php include 'includes/dbh.inc.php';?>
-	<?php 
+	<?php
 		include 'includes/menu.inc.php';
 		$roll=$_POST['uroll'];
 		$sql="SELECT * FROM student WHERE rollNumber='$roll';";
 		$result=mysqli_query($conn,$sql);
 		if(mysqli_num_rows($result) == 0){
-			echo "<div style='width:240px;margin:250px auto;background:rgba(255, 0, 0, 0.2);text-align:center; padding: 20px; border-radius:10px;'><b>No Student with Roll Number $roll</b></div>";	
+			echo "<div style='width:240px;margin:250px auto;background:rgba(255, 0, 0, 0.2);text-align:center; padding: 20px; border-radius:10px;'><b>No Student with Roll Number $roll</b></div>";
 			exit();
 		}
 		$row = mysqli_fetch_assoc($result);
@@ -104,6 +116,11 @@ include_once 'includes/checksession.inc.php'
 								<i class="glyphicon glyphicon-briefcase"></i>
 								Internship </a>
 							</li>
+							<li>
+								<a data-toggle="tab" href="#skin">
+								<i class="glyphicon glyphicon-wrench"></i>
+								Skills & Intersts </a>
+							</li>
 						</ul>
 					</div>
 					<!-- END USER MENU -->
@@ -156,7 +173,7 @@ include_once 'includes/checksession.inc.php'
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="col-md-9 tab-pane fade" id="acaddet">
 					<div class="profile-content">
 						   <div class="col-sm-2">
@@ -253,7 +270,7 @@ include_once 'includes/checksession.inc.php'
 				</div>
 				<div class="col-md-9 tab-pane fade" id="remarks">
 					<div id="loadrem">
-					
+
 					</div>
 					<div class="profile-content">
 						<!-- Form for remark -->
@@ -273,8 +290,27 @@ include_once 'includes/checksession.inc.php'
 				</div>
 				<div class="col-md-9 tab-pane fade" id="internships">
 					<div id="loadinternships">
-					
+
 					</div>
+				</div>
+				<div class="col-md-9 tab-pane fade" id="skin">
+					<div class="profile-content">
+						<div class="col-sm-offset-1 col-sm-10">
+							<label class="col-sm-2" >Skills: </label>
+							<div id="allskills" class="col-sm-10">
+
+							</div>
+						</div>
+					</div>
+				 	<br/><br/>
+				 <div class="profile-content">
+						<div class="col-sm-offset-1 col-sm-10">
+								<label class="col-sm-2" >Interests: </label>
+	 							<div class="col-sm-10" id="allinterests">
+
+								</div>
+						</div>
+				 </div>
 				</div>
 			</div>
 			<!-- END RIGHT PANE -->

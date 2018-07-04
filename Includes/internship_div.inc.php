@@ -1,5 +1,6 @@
-<?php include 'dbh.inc.php';?>
 <?php
+	include 'dbh.inc.php';
+	include_once 'checksession.inc.php';
 	$roll = $_POST['roll'];
 	$sql="SELECT * FROM internship WHERE roll = '$roll'";
 	$res = mysqli_query($conn,$sql);

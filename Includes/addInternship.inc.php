@@ -1,6 +1,7 @@
-<?php include 'dbh.inc.php';?>
 <?php
-	session_start();
+	include 'dbh.inc.php';
+	include_once 'checksession.inc.php';
+	include_once 'checkIfStudent.inc.php';
 	$id=$_SESSION['id'];
 	$desc=$_POST['desc'];
 	$org = $_POST['at'];
@@ -18,9 +19,9 @@
 		echo "Please Enter all the Details!";
 		exit();
 	}
-	
+
 	$sql="INSERT INTO internship(roll, num, startDate, endDate, org, description) VALUES('$id', $num,'$from', '$to', '$org', '$desc');";
 	if(mysqli_query($conn,$sql))
 		echo "Added !";
-	else echo "Failed to add!";	
+	else echo "Failed to add!";
 ?>

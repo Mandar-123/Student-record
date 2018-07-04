@@ -1,6 +1,7 @@
 <?php
 	include 'dbh.inc.php';
-	session_start();
+	include_once 'checksession.inc.php';
+	include_once 'checkIfStudent.inc.php';
 	$id=$_SESSION['id'];
 	$currpass=mysqli_real_escape_string($conn,$_POST['currpass']);
 	$newpass=mysqli_real_escape_string($conn,$_POST['newpass']);

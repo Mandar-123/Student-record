@@ -108,10 +108,11 @@ textarea {
 .border{
 	background-color:white;
 	float:left;
-	margin-top:10px;
+  height:40px;
+	margin-bottom:10px;
 	margin-right:20px;
 	border-radius:10px;
-	padding:0px;
+	padding:10px 0px 10px 10px;
 }
 
 .dev{
@@ -127,4 +128,8 @@ textarea {
 body{
 	background-attachment:fixed;
 	background-size:cover;
+}
+
+.rem:hover {
+  color: red;
 }

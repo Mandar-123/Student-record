@@ -1,3 +1,22 @@
+<?php
+		include 'includes/dbh.inc.php';
+		session_start();
+	  if(isset($_SESSION['id']))
+	  {
+	    $id = $_SESSION['id'];
+	    $sql = "SELECT * FROM faculty WHERE id = '$id';";
+	    $result=mysqli_query($conn,$sql);
+	    if (mysqli_num_rows($result) <= 0)
+	    {
+	      header("Location: studentHome.php");
+	      exit();
+	    } else {
+				header("Location: home.php");
+	      exit();
+			}
+	  }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,13 +41,13 @@
 						<input type="text" name="username" placeholder="Enter Roll no.">
 					</div class="font-input">
 					<div>
-						<input type="password" name="password" placeholder="Enter Password"><br>					
+						<input type="password" name="password" placeholder="Enter Password"><br>
 					<input type="submit" name="login1" value="Login" class="btn-login"><br>
 					</div>
-					<h3>Student Login</h3>		
+					<h3>Student Login</h3>
 				</form>
 			</div>
-		</div>	
+		</div>
 	</div>
 
 	<div class="col-sm-6">
@@ -43,19 +62,11 @@
 						<input type="password" name="password" placeholder="Enter Password"><br>
 					<input type="submit" name="login2" value="Login" class="btn-login"><br>
 					</div>
-					<h3>Faculty Login</h3>		
+					<h3>Faculty Login</h3>
 				</form>
 			</div>
-		</div>	
+		</div>
 	</div>
 	</div>
-
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();
-		})
-	</script>
 </body>
 </html>
